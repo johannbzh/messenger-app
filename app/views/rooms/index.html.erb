@@ -15,7 +15,7 @@
     </div>
     <div class="col-9">
       <% if @room.present? %>
-        <div class="chat-room">
+        <div class="chat-room" id="room" data-room-id="<%= @room.id%>">
           <nav class="navbar navbar-light bg-light mb-4">
             <span class = "navbar-brand" href="#"><%= @room.name %></span>
             <ul class = 'navbar-nav'>
@@ -23,16 +23,7 @@
             </ul>
           </nav>
           <% @room.messages.each do |message| %>
-            <div class="message mb-2 <%= 'me' if message.user == current_user %>">
-              <div class="content-container">
-                <div class="content">
-                  <p class= "mb-0"> <%= message.content %></p>
-                </div>
-                <div class="author">
-                  <%= message.user.username %>
-                </div>
-              </div>
-            </div>
+            <%= render 'messages/message', message: message %>
           <% end %>
           <div class="chat-box">
             <%= render 'messages/form', message: Message.new, room: @room %>
